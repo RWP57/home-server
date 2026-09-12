@@ -12,7 +12,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # 🌟 FIX 1: Changed 'runs-rate' to 'runs-on'
+    runs-on: self-hosted  # 🌟 Instructs GitHub to use your local Docker server runner
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,18 +25,10 @@ jobs:
           CHANGED_DIR=$(git diff --name-only HEAD~1 | head -n 1 | cut -d '/' -f1)
           echo "stack=$CHANGED_DIR" >> $GITHUB_OUTPUT
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:  # 🌟 FIX 2: Fixed the indentation blocks directly below this line
-          host: ${{ vars.SERVER_HOST }}       # 🌟 FIX 3: Changed 'variables' to 'vars'
-          username: ${{ vars.SERVER_USER }}   # 🌟 FIX 3: Changed 'variables' to 'vars'
-          key: ${{ secrets.SERVER_SSH_KEY }}     
-          port: ${{ vars.SERVER_PORT }}       # 🌟 FIX 3: Changed 'variables' to 'vars'
-          script: |
-            cd /home/${{ vars.SERVER_USER }}/homeserver/${{ steps.check_changes.outputs.stack }}
-            git pull
-            docker compose pull
-            docker config
-           # docker compose up -d --remove-orphans
-
-
+      - name: Deploy Local Stack
+        run: |
+          # 1. Move to where your runner checked out the repository files
+          # 2. Pull the images and update the exact container stack locally
+          cd ${{ github.workspace }}/${{ steps.check_changes.outputs.stack }}
+          docker compose pull
+          docker compose up -d --remove-orphans
