@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-    # Only trigger if files inside these specific application directories change
     paths:
       - 'immich/**'
       - 'paperless/**'
@@ -13,36 +12,31 @@ on:
 
 jobs:
   deploy:
-    runs-rate: ubuntu-latest
+    runs-on: ubuntu-latest  # 🌟 FIX 1: Changed 'runs-rate' to 'runs-on'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2 # Required to see what files changed in the last commit
+          fetch-depth: 2 
 
       - name: Determine changed stack
         id: check_changes
         run: |
-          # Detect which folder changed (e.g., immich, paperless, or ollama)
           CHANGED_DIR=$(git diff --name-only HEAD~1 | head -n 1 | cut -d '/' -f1)
           echo "stack=$CHANGED_DIR" >> $GITHUB_OUTPUT
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ variables.SERVER_HOST }}       # Your server IP or domain
-          username: ${{ variables.SERVER_USER }}   # Your SSH user
-          key: ${{ secrets.SERVER_SSH_KEY }}     # Your private SSH Key
-          port: ${{ variables.SERVER_PORT }}       # Your SSH Port (default 22)
+        with:  # 🌟 FIX 2: Fixed the indentation blocks directly below this line
+          host: ${{ vars.SERVER_HOST }}       # 🌟 FIX 3: Changed 'variables' to 'vars'
+          username: ${{ vars.SERVER_USER }}   # 🌟 FIX 3: Changed 'variables' to 'vars'
+          key: ${{ secrets.SERVER_SSH_KEY }}     
+          port: ${{ vars.SERVER_PORT }}       # 🌟 FIX 3: Changed 'variables' to 'vars'
           script: |
-            # Navigate to your server's base deployment directory
-            cd /home/${{ variables.SERVER_USER }} /homeserver/${{ steps.check_changes.outputs.stack }}
-            
-            # Pull down the latest changes via Git on the server or sync files
+            cd /home/${{ vars.SERVER_USER }}/homeserver/${{ steps.check_changes.outputs.stack }}
             git pull
-            
-            # Pull the new Docker images and recreate containers sequentially for just this stack
             docker compose pull
-        #    docker compose up -d --remove-orphans
             docker config
+           # docker compose up -d --remove-orphans
+
 
