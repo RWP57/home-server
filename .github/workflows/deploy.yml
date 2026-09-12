@@ -43,5 +43,6 @@ jobs:
             
             # Pull the new Docker images and recreate containers sequentially for just this stack
             docker compose pull
-            docker compose up -d --remove-orphans
+        #    docker compose up -d --remove-orphans
+            docker config
 
