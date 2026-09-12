@@ -1,0 +1,70 @@
+
+services:
+  broker:
+    image: docker.io/library/redis:7
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+
+  db:
+    image: docker.io/library/postgres:16
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: paperless
+      POSTGRES_PASSWORD: paperless
+
+  webserver:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+      - broker
+      - gotenberg
+      - tika
+    ports:
+      - "8000:8000"
+    volumes:
+      - /documents/data:/usr/src/paperless/data
+      - /documents/media:/usr/src/paperless/media
+      - /documents/export:/usr/src/paperless/export
+      - /mnt/paperless_consume:/usr/src/paperless/consume
+    env_file: docker-compose.env
+    environment:
+      PAPERLESS_SECRET_KEY: "BUVPo9EmNFgFbkPgEvIyPMfxo2E9pZnla1A5A4j3tG3HQaMs6ROx_O04aPMpOABPFRBS9fuMq7qFo6Ltyltzbg"
+      PAPERLESS_REDIS: redis://broker:6379
+      PAPERLESS_DBHOST: db
+      PAPERLESS_TIKA_ENABLED: 1
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://tika:9998
+      PAPERLESS_CONSUMER_POLLING: 10
+      PAPERLESS_CONSUMER_USE_POLLING: "true" 
+      PAPERLESS_NEVER_CHOWN_DIRS: "true"
+
+  gotenberg:
+    image: docker.io/gotenberg/gotenberg:8.7
+    restart: unless-stopped
+    command:
+      - "gotenberg"
+      - "--chromium-disable-javascript=true"
+      - "--chromium-allow-list=file:///tmp/.*"
+
+  tika:
+   # image: docker.io/apache/tika:latest
+   # image: ghcr.io/paperless-ngx/tika:3.0.0-full
+    image: docker.io/apache/tika:3.3.1.0-full
+    restart: unless-stopped
+
+
+volumes:
+  pgdata:
+  redisdata:
+  paperless_consume:
+    driver: local
+    driver_opts:
+      type: cifs
+#      o: "username=robbo,password=atilla1atilla1,uid=1000,gid=1000,nobrl,vers=3.0"
+      o: "username=robbo,password=atilla1atilla1,uid=1000,gid=1000,nobrl,vers=3.0,file_mode=0777,dir_mode=0777"
+      device: "//192.168.150.100/Documents"
