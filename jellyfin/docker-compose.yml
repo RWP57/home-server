@@ -1,5 +1,5 @@
 services:
-
+#
   jellyfin:
     image: jellyfin/jellyfin:latest
     container_name: jellyfin
@@ -61,7 +61,7 @@ services:
       - TZ=America/Chicago
     volumes:
     #  - /home/robbo/docker/radarr/config:/config
-      -  /mnt/media/home-server/jellyfin//radarr/config:/config
+      - /mnt/media/home-server/jellyfin//radarr/config:/config
       - /sonarr/config:/config
       - /media/Xmovies:/movies
       - /media/downloads:/downloads
@@ -83,7 +83,7 @@ services:
       - "5055:5055"
     volumes:
    #   - /home/robbo/docker/jellyseerr/config:/app/config
-      -  /mnt/media/home-server/jellyfin//jellyseerr/config:/app/config
+      - /mnt/media/home-server/jellyfin//jellyseerr/config:/app/config
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1
@@ -124,7 +124,7 @@ services:
       - "9696:9696"
     volumes:
   #    - /home/robbo/docker/prowlarr/config:/config
-      -  /mnt/media/home-server/jellyfin/prowlarr/config:/config
+      - /mnt/media/home-server/jellyfin/prowlarr/config:/config
     restart: unless-stopped
 
   qbittorrent:
@@ -136,7 +136,7 @@ services:
       - TZ=America/Chicago
     volumes:
 #      - /home/robbo/docker/qbittorrent/appdata:/config
-      -  /mnt/media/home-server/jellyfin/qbittorrent/appdata:/config
+      - /mnt/media/home-server/jellyfin/qbittorrent/appdata:/config
       - /media/Xmovies:/movies
       - /media/downloads:/downloads
     ports:
@@ -170,7 +170,7 @@ services:
       - TZ=America/Chicago
     volumes:
 #      - /home/robbo/docker/deluge/config:/config
-      -  /mnt/media/home-server/jellyfin/deluge/config:/config
+      - /mnt/media/home-server/jellyfin/deluge/config:/config
       - /media/downloads:/downloads
     ports:
       - "8112:8112"
