@@ -1,6 +1,6 @@
 services:
 
-#
+
   jellyfin:
     image: jellyfin/jellyfin:latest
     container_name: jellyfin
@@ -107,6 +107,7 @@ services:
       retries: 3
       start_period: 10s
     volumes:
+      - /mnt/media/home-server/jellyfin/sabnzbd/config:/config
       - /mnt/media/home-server/jellyfin/sabnzbd/config:/config
       - /media/downloads:/downloads
     ports:
