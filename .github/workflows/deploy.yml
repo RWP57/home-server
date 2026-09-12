@@ -1,0 +1,47 @@
+name: Deploy Server Stacks
+
+on:
+  push:
+    branches:
+      - main
+    # Only trigger if files inside these specific application directories change
+    paths:
+      - 'immich/**'
+      - 'paperless/**'
+      - 'ollama/**'
+      - 'jellyfin/**'
+
+jobs:
+  deploy:
+    runs-rate: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Required to see what files changed in the last commit
+
+      - name: Determine changed stack
+        id: check_changes
+        run: |
+          # Detect which folder changed (e.g., immich, paperless, or ollama)
+          CHANGED_DIR=$(git diff --name-only HEAD~1 | head -n 1 | cut -d '/' -f1)
+          echo "stack=$CHANGED_DIR" >> $GITHUB_OUTPUT
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ variables.SERVER_HOST }}       # Your server IP or domain
+          username: ${{ variables.SERVER_USER }}   # Your SSH user
+          key: ${{ secrets.SERVER_SSH_KEY }}     # Your private SSH Key
+          port: ${{ variables.SERVER_PORT }}       # Your SSH Port (default 22)
+          script: |
+            # Navigate to your server's base deployment directory
+            cd /home/${{ variables.SERVER_USER }} /homeserver/${{ steps.check_changes.outputs.stack }}
+            
+            # Pull down the latest changes via Git on the server or sync files
+            git pull
+            
+            # Pull the new Docker images and recreate containers sequentially for just this stack
+            docker compose pull
+            docker compose up -d --remove-orphans
+
