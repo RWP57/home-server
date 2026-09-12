@@ -184,7 +184,6 @@ networks:
   - proxy-tier  # Allows your reverse proxy to see it
 
 volumes:
-  ollama-data:
   open-webui-data:
   model-cache:
   pgdata:
