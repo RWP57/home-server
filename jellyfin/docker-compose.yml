@@ -83,7 +83,7 @@ services:
       - "5055:5055"
     volumes:
    #   - /home/robbo/docker/jellyseerr/config:/app/config
-      - /mnt/media/home-server/jellyfin//jellyseerr/config:/app/config
+      - /mnt/media/home-server/jellyfin/jellyseerr/config:/app/config
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1
