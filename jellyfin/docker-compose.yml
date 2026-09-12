@@ -1,4 +1,5 @@
 services:
+
   jellyfin:
     image: jellyfin/jellyfin:latest
     container_name: jellyfin
@@ -16,11 +17,13 @@ services:
     volumes:
 #      - /home/robbo/docker/jellyfin/config:/config
 #      - /home/robbo/docker/jellyfin/cache:/cache
-      - /mnt/media/git/rwp_docker/docker/jellyfin/config:/config
-      - /mnt/media/git/rwp_docker/docker/jellyfin/cache:/cache
+      -  /mnt/media/home-server/jellyfin/jellyfin/config:/config
+      -  /mnt/media/home-server/jellyfin/jellyfin/cache:/cache
       - /media:/media
     networks:
       - tv-network
+      - default
+      - proxy-tier
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:8096/health"]
       interval: 30s
@@ -39,7 +42,7 @@ services:
       - TZ=America/Chicago
     volumes:
     #  - /home/robbo/docker/sonarr/config:/config
-      - /mnt/media/git/rwp_docker/docker/sonarr/config:/config
+      - /mnt/media/home-server/jellyfin/sonarr/config:/config
       - /media/tv:/tv
       - /media/downloads:/downloads
     depends_on:
@@ -58,7 +61,7 @@ services:
       - TZ=America/Chicago
     volumes:
     #  - /home/robbo/docker/radarr/config:/config
-      - /mnt/media/git/rwp_docker/docker/radarr/config:/config
+      -  /mnt/media/home-server/jellyfin//radarr/config:/config
       - /sonarr/config:/config
       - /media/Xmovies:/movies
       - /media/downloads:/downloads
@@ -80,7 +83,7 @@ services:
       - "5055:5055"
     volumes:
    #   - /home/robbo/docker/jellyseerr/config:/app/config
-      - /mnt/media/git/rwp_docker/docker/jellyseerr/config:/app/config
+      -  /mnt/media/home-server/jellyfin//jellyseerr/config:/app/config
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1
@@ -103,7 +106,7 @@ services:
       retries: 3
       start_period: 10s
     volumes:
-      - /home/robbo/docker/sabnzbd/config:/config
+      - /mnt/media/home-server/jellyfin/sabnzbd/config:/config
       - /media/downloads:/downloads
     ports:
       - "8080:8080"
@@ -120,7 +123,7 @@ services:
       - "9696:9696"
     volumes:
   #    - /home/robbo/docker/prowlarr/config:/config
-      - /mnt/media/git/rwp_docker/docker/prowlarr/config:/config
+      -  /mnt/media/home-server/jellyfin/prowlarr/config:/config
     restart: unless-stopped
 
   qbittorrent:
@@ -132,7 +135,7 @@ services:
       - TZ=America/Chicago
     volumes:
 #      - /home/robbo/docker/qbittorrent/appdata:/config
-      - /mnt/media/git/rwp_docker/docker/qbittorrent/appdata:/config
+      -  /mnt/media/home-server/jellyfin/qbittorrent/appdata:/config
       - /media/Xmovies:/movies
       - /media/downloads:/downloads
     ports:
@@ -150,7 +153,7 @@ services:
       - TZ=America/Chicago
     volumes:
   #    - /home/robbo/docker/nzbget/config:/config
-      - /mnt/media/git/rwp_docker/docker/nzbget/config:/config
+      - /mnt/media/home-server/jellyfin/nzbget/config:/config
       - /media/Xmovies:/movies
       - /media/downloads:/downloads
     ports:
@@ -166,7 +169,7 @@ services:
       - TZ=America/Chicago
     volumes:
 #      - /home/robbo/docker/deluge/config:/config
-      - /mnt/media/git/rwp_docker/docker/deluge/config:/config
+      -  /mnt/media/home-server/jellyfin/deluge/config:/config
       - /media/downloads:/downloads
     ports:
       - "8112:8112"
@@ -176,15 +179,13 @@ services:
       - "6882:6881/udp"
     restart: unless-stopped
 
-
 networks:
   tv-network:
     driver: bridge
-  - default     # Keeps it connected to its internal Postgres/Redis
-  - proxy-tier  # Allows your reverse proxy to see it
+  proxy-tier:     # 🌟 FIX: Removed the dashes and added colons
+    external: true  # Tells Docker this network already exists on your server
 
 volumes:
-  ollama-data:
   open-webui-data:
   model-cache:
   pgdata:
