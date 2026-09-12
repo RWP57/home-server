@@ -176,12 +176,13 @@ services:
       - "6882:6881/udp"
     restart: unless-stopped
 
-
 networks:
   tv-network:
     driver: bridge
-  - default     # Keeps it connected to its internal Postgres/Redis
-  - proxy-tier  # Allows your reverse proxy to see it
+  default:        # 🌟 FIX: Removed the dashes and added colons
+    external: true  # Tells Docker this network already exists on your server
+  proxy-tier:     # 🌟 FIX: Removed the dashes and added colons
+    external: true  # Tells Docker this network already exists on your server
 
 volumes:
   open-webui-data:
