@@ -1,0 +1,180 @@
+{
+    "file": 2,
+    "format": 1
+}{
+    "base": "/",
+    "cert": "ssl/daemon.cert",
+    "default_daemon": "",
+    "enabled_plugins": [],
+    "first_login": false,
+    "https": false,
+    "interface": "0.0.0.0",
+    "language": "",
+    "pkey": "ssl/daemon.pkey",
+    "port": 8112,
+    "pwd_salt": "8a414cc2fdc70497fc526cf217f626fcbecc6b89",
+    "pwd_sha1": "026b90bf1dfeca1ba966072dc685092ffb3aaa8b",
+    "session_timeout": 3600,
+    "sessions": {
+        "095b405a49b604906ef7c239dfe79dc35925ea0ee4499b2a91fd1563f3cb3ed1": {
+            "expires": 1765512876.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "0d72143c22789dd59b741b265c1f03585ad914c416d138cba7c966301bd50afd": {
+            "expires": 1767614391.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "2a46a4d716cede7c9bbbc828f3bcfccc9a2b1c8464b8d00b2cc6f89a741f83b7": {
+            "expires": 1765996563.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "43d14e3efc0ee6b5f2c10acc21704553a162f8b4be26804b43cfff60045e88c4": {
+            "expires": 1765947924.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "56bc531eec4515877a81addab14b8afe21c4ce9f34d8dac70e110f023cda18d4": {
+            "expires": 1765996576.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "5e815021f3cf2c227c15ba4ad548019fc912d92b6ab612508b9c70859893eb88": {
+            "expires": 1767537160.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "62017070e1743972c3063110806822dba94b02bb66b659daa55fe14acc0ed4e7": {
+            "expires": 1767734040.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "66528a8665eeb6b3a1ea92f2f2c9babf6eacd51e55d3e61eedd963edee97c85f": {
+            "expires": 1765512825.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "6aa82a3fe07b994950700f278e6748a8bb336dbdebfd1648edae46c736571023": {
+            "expires": 1765995730.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "70b04776b1a222a2f300c052a23997962f6ca61ae44c59bc52fdde124ef32db0": {
+            "expires": 1765950657.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "76f7c0e750ddf7aedfd9b3270becaad62e8bbc963dab544c195e85b509ecb745": {
+            "expires": 1765995873.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "7b665cd302ced732425e2e47b64e72b78502585f3ba7e0bfd30e8b681abc3b04": {
+            "expires": 1765995758.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "90d4ff5359956bda20cfdd52db5ea612d0f0fdf94fa626fce968cec09c6f98ce": {
+            "expires": 1767582329.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "97fe6b8df433c467ca8df5d309120852fe12d7d8427f4163f5cba4285ba241b7": {
+            "expires": 1767733950.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "9d25d10a4d8d128f26bb6eef7c5a396011c68c1802b0fa1772cb05c5f1eb55d8": {
+            "expires": 1767737654.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "a78032871642fa593602264cd483f6a4fe8fc7fbd47c9c10735e521c92838105": {
+            "expires": 1765995876.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "af054934357c161f86286f92e5f5be0e4c270ceb03104fe0a817a9779e0d8c6c": {
+            "expires": 1767537133.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "b12db0af5357e311d816626d62e3552a9b49d33cce4be3503f22b954d4c85734": {
+            "expires": 1765836610.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "b511a298abeb28b9b35befdd7afc9468f45de2737510cbb82c7272382bce880e": {
+            "expires": 1765512829.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "b5c867a7a3ae98b6e793292cae2c98c3419f0a80ffbb9cc9087deb29bcf5064d": {
+            "expires": 1766638311.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "b8cc008be15fefda767b8af03f7fcd985fb88a08bae458830e11724f13b4f415": {
+            "expires": 1767737589.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "bd7b69507150ad1b28bafc850fd34078328c93940bca46c6c6e06906c8e7cc8c": {
+            "expires": 1767492013.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "c2e52bbc497503953f494f8739394bc230cc77d0e81d7888f7b4fc601a4c0f75": {
+            "expires": 1765996572.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "cd5917d734d9b5955f930d9fa85134c5364f7a1938acc8646a1a2ab99c2a782c": {
+            "expires": 1765950692.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "cd6f619f9d762db012e74d4b434c0251bebea17b4fd8beb0dc5d64cce07bdf46": {
+            "expires": 1765512896.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "cdd66b7000ad183039ed36f80b2b9b757da9e157b42803f4f99db8e3c4f1c624": {
+            "expires": 1767775532.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "e5f95b61ca6168396b9bcb45b1c2f880c9df0ce448fb5eac0f4de6c48c5ea7bc": {
+            "expires": 1767775517.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "eb24bfe3a972fe80b6991ec1daf64004a42d6e0aae644d15eadffbc241e5d6d1": {
+            "expires": 1766638352.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "ed94132562cd69c0b8fe51305ad66ff8cb46c36721618fe4632b97d177a2d49e": {
+            "expires": 1767614434.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "faed66daf8bb9fd442ed116bead73009d7a855ef1e56906bf568a8d93023e3ab": {
+            "expires": 1765836618.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "fc9f3c47348da9859457153fb286057112741f9b796b0e8fd3145d42b9808b3e": {
+            "expires": 1765947956.0,
+            "level": 10,
+            "login": "admin"
+        }
+    },
+    "show_session_speed": false,
+    "show_sidebar": true,
+    "sidebar_multiple_filters": true,
+    "sidebar_show_zero": false,
+    "theme": "gray"
+}
