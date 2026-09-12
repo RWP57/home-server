@@ -1,0 +1,7 @@
+Sat Sep 12 00:04:28 2026	ERROR	No servers are configured
+Sat Sep 12 00:04:28 2026	WARNING	[DownloadQueue][ArticleCache]: 'ArticleCache' is disabled. Enabling it is recommended to reduce disk fragmentation
+Sat Sep 12 00:04:28 2026	WARNING	[DownloadQueue][WriteBuffer]: 'WriteBuffer' is set to '0'. This uses the default system buffer, which is often too small and inefficient
+Sat Sep 12 00:04:28 2026	INFO	nzbget 26.3 server-mode
+Sat Sep 12 00:04:28 2026	INFO	using /config/nzbget.conf
+Sat Sep 12 00:04:28 2026	INFO	nzbget runs on 0.0.0.0:6789
+Sat Sep 12 00:12:57 2026	INFO	Stopping, please wait...
