@@ -112,7 +112,6 @@ services:
       start_period: 10s
     volumes:
       - /mnt/media/home-server/jellyfin/sabnzbd/config:/config
-      - /mnt/media/home-server/jellyfin/sabnzbd/config:/config
       - /media/downloads:/downloads
     ports:
       - "8080:8080"
