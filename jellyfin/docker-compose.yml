@@ -181,8 +181,6 @@ services:
 networks:
   tv-network:
     driver: bridge
-  default:        # 🌟 FIX: Removed the dashes and added colons
-    external: true  # Tells Docker this network already exists on your server
   proxy-tier:     # 🌟 FIX: Removed the dashes and added colons
     external: true  # Tells Docker this network already exists on your server
 
