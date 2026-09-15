@@ -45,15 +45,5 @@ networks:
    - proxy-tier  # Allows your reverse proxy to see it
 
 volumes:
-  ollama-data:
-  open-webui-data:
-  model-cache:
   pgdata:
   redisdata:
-  paperless_consume:
-    driver: local
-    driver_opts:
-      type: cifs
-#      o: "username=robbo,password=atilla1atilla1,uid=1000,gid=1000,nobrl,vers=3.0"
-      o: "username=robbo,password=atilla1atilla1,uid=1000,gid=1000,nobrl,vers=3.0,file_mode=0777,dir_mode=0777"
-      device: "//192.168.150.100/Documents"
