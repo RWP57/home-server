@@ -1,1 +1,38 @@
+services:
 
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:latest
+    container_name: nextcloud
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      - MYSQL_HOST=nextcloud_db
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=nextcloudpass
+    volumes:
+      - /home/robbo/docker/nextcloud/config:/config
+      - /media/nextcloud/data:/data
+      - /media/Xmovies:/movies
+      - /media/tv:/tv
+      - /media/library:/photos
+      - /documents:/documents
+    ports:
+      - "4443:443"
+    depends_on:
+      - nextcloud_db
+    restart: unless-stopped
+
+
+  nextcloud_db:
+    image: mariadb:10.6
+    container_name: nextcloud_db
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=nextcloudpass
+    volumes:
+      - /home/robbo/docker/nextcloud/db:/var/lib/mysql
+    restart: unless-stopped
