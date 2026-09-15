@@ -9,6 +9,11 @@ on:
       - 'paperless/**'
       - 'ollama/**'
       - 'jellyfin/**'
+      - 'media/**'
+      - 'downloads/**'
+      - 'tuner/**'
+      - 'utilities/**' 
+      - 'tailscale/**'
 
 jobs:
   deploy:
@@ -31,4 +36,5 @@ jobs:
           # 2. Pull the images and update the exact container stack locally
           cd ${{ github.workspace }}/${{ steps.check_changes.outputs.stack }}
           docker compose pull
-          docker compose up -d --remove-orphans
+         # docker compose up -d --remove-orphans
+         docker compose config
