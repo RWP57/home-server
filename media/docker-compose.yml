@@ -105,8 +105,9 @@ services:
 
 
 networks:
-  tv-network:
-    external: true
-
   media-network:
     external: true
+  tv-network:
+    external: true
+    name: docker_tv-network
+
