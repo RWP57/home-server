@@ -1,4 +1,4 @@
-service:
+services:
 
   immich-server:
     container_name: immich_server
@@ -14,12 +14,10 @@ service:
 
   immich-machine-learning:
     container_name: immich_machine_learning
-    # Changed from :release to the openvino variant
     image: ghcr.io/immich-app/immich-machine-learning:release-openvino
     volumes:
       - model-cache:/cache
     restart: always
-
 
   redis:
     container_name: immich_redis
@@ -37,14 +35,5 @@ service:
       - ${DB_DATA_LOCATION}:/var/lib/postgresql/data
     restart: always
 
-    
-networks:
-  tv-network:
-    driver: bridge
-   - default     # Keeps it connected to its internal Postgres/Redis
-   - proxy-tier  # Allows your reverse proxy to see it
-
 volumes:
-  pgdata:
-  redisdata:
   model-cache:
