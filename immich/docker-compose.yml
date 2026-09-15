@@ -12,6 +12,7 @@ services:
       - database
     restart: always
 
+
   immich-machine-learning:
     container_name: immich_machine_learning
     image: ghcr.io/immich-app/immich-machine-learning:release-openvino
@@ -19,10 +20,12 @@ services:
       - model-cache:/cache
     restart: always
 
+
   redis:
     container_name: immich_redis
     image: valkey/valkey:latest
     restart: always
+
 
   database:
     container_name: immich_postgres
@@ -35,5 +38,7 @@ services:
       - ${DB_DATA_LOCATION}:/var/lib/postgresql/data
     restart: always
 
+
 volumes:
   model-cache:
+
