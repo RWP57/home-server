@@ -1,0 +1,54 @@
+services:
+
+  fastchannels:
+    image: ghcr.io/kineticman/fastchannels:latest
+    container_name: fastchannels
+    restart: unless-stopped
+    environment:
+      - TZ=America/Chicago
+    ports:
+      - "5523:5523"
+    volumes:
+      - /media/tuner/fastchannels_data:/data
+    networks:
+      - tv-network
+
+
+  threadfin:
+    image: fyb3roptik/threadfin:latest
+    container_name: threadfin
+    restart: unless-stopped
+    ports:
+      - "34400:34400"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /media/tuner/conf:/home/threadfin/conf
+      - /media/tuner/temp:/home/threadfin/temp
+    dns:
+      - 127.0.0.11
+      - 1.1.1.1
+      - 8.8.8.8
+    networks:
+      - tv-network
+    depends_on:
+      - fastchannels
+
+
+  hls-proxy:
+    image: riftbit/hls-proxy:latest
+    container_name: hls-proxy
+    restart: unless-stopped
+    ports:
+      - "34300:34300"
+    volumes:
+      - /media/tuner/hls_config:/opt/hlsp/config
+    networks:
+      - tv-network
+
+
+networks:
+  tv-network:
+    external: true
