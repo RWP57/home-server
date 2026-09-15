@@ -29,7 +29,6 @@ jobs:
         run: |
           CHANGED_DIR=$(git diff --name-only HEAD~1 | head -n 1 | cut -d '/' -f1)
           echo "stack=$CHANGED_DIR" >> $GITHUB_OUTPUT
-
       - name: Deploy Local Stack
         run: |
           # 1. Move to where your runner checked out the repository files
