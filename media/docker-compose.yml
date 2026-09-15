@@ -1,0 +1,112 @@
+services:
+
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      - DOTNET_SYSTEM_NET_DISABLEIPV6=1
+      - JELLYFIN_PublishedServerUrl=http://localhost:8096
+      - JELLYFIN_EnableDlna=false
+    command: sh -c "sleep 15 && /jellyfin/jellyfin"
+    ports:
+      - "8096:8096"
+      - "8920:8920"
+    volumes:
+      - /home/robbo/docker/jellyfin/config:/config
+      - /home/robbo/docker/jellyfin/cache:/cache
+      - /media:/media
+    networks:
+      - tv-network
+      - media-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8096/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /home/robbo/docker/sonarr/config:/config
+      - /media/tv:/tv
+      - /media/downloads:/downloads
+    ports:
+      - "8989:8989"
+    networks:
+      - media-network
+    restart: unless-stopped
+
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /home/robbo/docker/radarr/config:/config
+      - /media/Xmovies:/movies
+      - /media/downloads:/downloads
+    ports:
+      - "7878:7878"
+    networks:
+      - media-network
+    restart: unless-stopped
+
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    ports:
+      - "9696:9696"
+    volumes:
+      - /home/robbo/docker/prowlarr/config:/config
+    networks:
+      - media-network
+    restart: unless-stopped
+
+
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: seerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=America/Chicago
+    ports:
+      - "5055:5055"
+    volumes:
+      - /home/robbo/docker/jellyseerr/config:/app/config
+    networks:
+      - media-network
+    restart: unless-stopped
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
+
+
+networks:
+  tv-network:
+    external: true
+
+  media-network:
+    external: true
