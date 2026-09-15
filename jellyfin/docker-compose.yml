@@ -194,18 +194,6 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Chicago
-
-  hls-proxy:
-    image: riftbit/hls-proxy:latest
-    container_name: hls-proxy
-    restart: unless-stopped
-    ports:
-      - "34300:34300"  # Native UI port for riftbit image
-    volumes:
-      - /media/tuner/hls_config:/opt/hlsp/config
-    networks:
-      - tv-network
-
     volumes:
 #      - /home/robbo/docker/deluge/config:/config
       - /mnt/media/home-server/jellyfin/deluge/config:/config
@@ -219,6 +207,17 @@ services:
       - "6882:6881"
       - "6882:6881/udp"
     restart: unless-stopped
+
+  hls-proxy:
+    image: riftbit/hls-proxy:latest
+    container_name: hls-proxy
+    restart: unless-stopped
+    ports:
+      - "34300:34300"  # Native UI port for riftbit image
+    volumes:
+      - /media/tuner/hls_config:/opt/hlsp/config
+    networks:
+      - tv-network
 
 networks:
   tv-network:
