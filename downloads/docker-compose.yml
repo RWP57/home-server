@@ -1,0 +1,87 @@
+services:
+
+  sabnzbd:
+    image: linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/api?mode=version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    volumes:
+      - /home/robbo/docker/sabnzbd/config:/config
+      - /media/downloads:/downloads
+    ports:
+      - "8080:8080"
+    networks:
+      - media-network
+    restart: unless-stopped
+
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /home/robbo/docker/qbittorrent/appdata:/config
+      - /media/Xmovies:/movies
+      - /media/downloads:/downloads
+    ports:
+      - "8081:8080"
+      - "6881:6881"
+      - "6881:6881/udp"
+    networks:
+      - media-network
+    restart: unless-stopped
+
+
+  nzbget:
+    image: lscr.io/linuxserver/nzbget:latest
+    container_name: nzbget
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /home/robbo/docker/nzbget/config:/config
+      - /media/Xmovies:/movies
+      - /media/downloads:/downloads
+    ports:
+      - "6789:6789"
+    networks:
+      - media-network
+    restart: unless-stopped
+
+
+  deluge:
+    image: lscr.io/linuxserver/deluge:latest
+    container_name: deluge
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /home/robbo/docker/deluge/config:/config
+      - /media/downloads:/downloads
+    ports:
+      - "8112:8112"
+      - "58846:58846"
+      - "58846:58846/udp"
+      - "6882:6881"
+      - "6882:6881/udp"
+    networks:
+      - media-network
+    restart: unless-stopped
+
+
+networks:
+  media-network:
+    external: true
