@@ -47,3 +47,4 @@ networks:
 volumes:
   pgdata:
   redisdata:
+  model-cache:
