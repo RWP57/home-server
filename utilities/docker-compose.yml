@@ -1,0 +1,27 @@
+services:
+
+  grocy:
+    image: lscr.io/linuxserver/grocy:latest
+    container_name: grocy
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - /home/robbo/docker/grocy/config:/config
+    ports:
+      - "9283:80"
+    restart: unless-stopped
+
+
+  sqlite-editor:
+    image: tomdesinto/sqliteweb:latest
+    container_name: sqlite-editor
+    ports:
+      - "7979:8080"
+    volumes:
+      - /tmp/data/db.sqlite3:/db/db.sqlite3
+    command:
+      - sqlite_web
+      - /db/db.sqlite3
+      - --host=0.0.0.0
