@@ -173,6 +173,20 @@ services:
       - "6789:6789"
     restart: unless-stopped
 
+
+  fastchannels:
+    image: ghcr.io/kineticman/fastchannels:latest
+    container_name: fastchannels
+    restart: unless-stopped
+    environment:
+      - TZ=America/Chicago
+    ports:
+      - "5523:5523"  # Keeps your diagnostic status page open
+    volumes:
+      - /media/tuner/fastchannels_data:/data
+    networks:
+      - tv-network
+      
   deluge:
     image: lscr.io/linuxserver/deluge:latest
     container_name: deluge
