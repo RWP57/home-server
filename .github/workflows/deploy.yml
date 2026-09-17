@@ -34,7 +34,9 @@ jobs:
           # 2. Pull the images and update the exact container stack locally
           cd ${{ github.workspace }}/${{ steps.check_changes.outputs.stack }}
           echo ${{github.workspace}}
+          echo "XX"
           echo ${{steps.check_changes.outputs.stack}}
+          echo "YY"
           pwd
           ls
           docker compose pull
