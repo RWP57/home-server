@@ -12,7 +12,6 @@ services:
       - database
     restart: always
 
-
   immich-machine-learning:
     container_name: immich_machine_learning
     image: ghcr.io/immich-app/immich-machine-learning:release-openvino
