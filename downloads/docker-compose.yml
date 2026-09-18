@@ -82,6 +82,9 @@ services:
     restart: unless-stopped
 
 
-networks:
+networks:  
   media-network:
     external: true
+  tv-network:
+    external: true
+    name: docker_tv-network
