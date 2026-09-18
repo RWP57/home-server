@@ -33,12 +33,12 @@ jobs:
           # 1. Move to where your runner checked out the repository files
           # 2. Pull the images and update the exact container stack locally
           cd ${{ github.workspace }}/${{ steps.check_changes.outputs.stack }}
-          echo ${{github.workspace}}
-          echo "XX"
-          echo ${{steps.check_changes.outputs.stack}}
-          echo "YY"
-          pwd
-          ls
+          #echo ${{github.workspace}}
+          #echo "XX"
+          #echo ${{steps.check_changes.outputs.stack}}
+          #echo "YY"
+          #pwd
+          #ls
           docker compose pull
-          #docker compose up -d --remove-orphans
+          docker compose up -d --remove-orphans
           
