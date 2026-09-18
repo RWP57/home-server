@@ -87,4 +87,4 @@ networks:
     external: true
   tv-network:
     external: true
-    name: docker_tv-network
+#    name: docker_tv-network
