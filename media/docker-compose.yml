@@ -78,7 +78,7 @@ services:
     volumes:
       - /home/robbo/docker/prowlarr/config:/config
     networks:
-      - media-networ
+      - media-network
     restart: unless-stopped
 
 
@@ -95,7 +95,7 @@ services:
       - /home/robbo/docker/jellyseerr/config:/app/config
     networks:
       - media-network
-      - tv-network
+  #    - tv-network
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1
