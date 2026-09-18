@@ -24,7 +24,6 @@ services:
       - nextcloud_db
     restart: unless-stopped
 
-
   nextcloud_db:
     image: mariadb:10.6
     container_name: nextcloud_db
