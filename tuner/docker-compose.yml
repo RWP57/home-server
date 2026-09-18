@@ -13,7 +13,6 @@ services:
     networks:
       - tv-network
 
-
   threadfin:
     image: fyb3roptik/threadfin:latest
     container_name: threadfin
