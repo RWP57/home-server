@@ -21,7 +21,6 @@ services:
     networks:
       - tv-network
       - media-network
-      - docker_tv-network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://127.0.0.1:8096/health"]
       interval: 30s
@@ -45,7 +44,6 @@ services:
       - "8989:8989"
     networks:
       - media-network
-      - docker_tv-network
     restart: unless-stopped
 
 
@@ -64,7 +62,7 @@ services:
       - "7878:7878"
     networks:
       - media-network
-      - docker_tv-network
+
     restart: unless-stopped
 
 
@@ -81,7 +79,6 @@ services:
       - /home/robbo/docker/prowlarr/config:/config
     networks:
       - media-networ
-      - docker_tv-networkk
     restart: unless-stopped
 
 
@@ -99,7 +96,6 @@ services:
     networks:
       - media-network
       - tv-network
-      - docker_tv-network
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1
@@ -114,5 +110,5 @@ networks:
     external: true
   tv-network:
     external: true
-    name: docker_tv-network
+#    name: docker_tv-network
 
