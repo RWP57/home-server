@@ -13,7 +13,6 @@ services:
       - "9283:80"
     restart: unless-stopped
 
-
   sqlite-editor:
     image: tomdesinto/sqliteweb:latest
     container_name: sqlite-editor
