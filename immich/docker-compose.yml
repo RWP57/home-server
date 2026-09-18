@@ -19,7 +19,6 @@ services:
       - model-cache:/cache
     restart: always
 
-
   redis:
     container_name: immich_redis
     image: valkey/valkey:latest
