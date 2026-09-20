@@ -13,11 +13,11 @@ services:
       - MYSQL_PASSWORD=nextcloudpass
     volumes:
       - /home/robbo/docker/nextcloud/config:/config
-      - /media/nextcloud/data:/data
-      - /media/Xmovies:/movies
-      - /media/tv:/tv
-      - /media/library:/photos
-      - /documents:/documents
+      - /mnt/media/media/nextcloud/data:/data
+  #    - /media/Xmovies:/movies
+  #    - /media/tv:/tv
+  #    - /media/library:/photos
+  #    - /documents:/documents
     ports:
       - "4443:443"
     depends_on:
