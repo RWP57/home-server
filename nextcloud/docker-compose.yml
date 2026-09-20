@@ -14,7 +14,7 @@ services:
       - MYSQL_PASSWORD=nextcloudpass
     volumes:
       - /home/robbo/docker/nextcloud/config:/config
-      - /mnt/media/media/nextcloud/data:/data
+      - /mnt/media/nextcloud/data:/data
   #    - /media/Xmovies:/movies
   #    - /media/tv:/tv
   #    - /media/library:/photos
