@@ -1,8 +1,6 @@
 services:
-
-
   nextcloud:
-    image: lscr.io/linuxserver/nextcloud:latest
+    image: lscr.io/linuxserver/nextcloud:34.0.1
     container_name: nextcloud
     environment:
       - PUID=1000
@@ -15,14 +13,12 @@ services:
     volumes:
       - /home/robbo/docker/nextcloud/config:/config
       - /mnt/media/nextcloud/data:/data
-  #    - /media/Xmovies:/movies
-  #    - /media/tv:/tv
-  #    - /media/library:/photos
-  #    - /documents:/documents
     ports:
       - "4443:443"
     depends_on:
       - nextcloud_db
+    networks:
+      - nextcloud_net
     restart: unless-stopped
 
   nextcloud_db:
@@ -35,4 +31,10 @@ services:
       - MYSQL_PASSWORD=nextcloudpass
     volumes:
       - /home/robbo/docker/nextcloud/db:/var/lib/mysql
+    networks:
+      - nextcloud_net
     restart: unless-stopped
+
+networks:
+  nextcloud_net:
+    driver: bridge
