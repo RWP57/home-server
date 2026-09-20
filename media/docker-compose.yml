@@ -57,7 +57,8 @@ services:
       - TZ=America/Chicago
     volumes:
       - /home/robbo/docker/radarr/config:/config
-      - /media/Xmovies:/movies
+  #    - /media/Xmovies:/movies
+      - /mnt/media/movies:/movies
       - /media/downloads:/downloads
     ports:
       - "7878:7878"
