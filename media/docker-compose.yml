@@ -18,7 +18,7 @@ services:
       - /home/robbo/docker/jellyfin/config:/config
       - /home/robbo/docker/jellyfin/cache:/cache
       - /media:/media
-      - /mnt/media/:/media
+      - /mnt/media/music/:/media/music
     networks:
       - tv-network
       - media-network
