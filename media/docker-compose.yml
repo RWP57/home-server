@@ -17,7 +17,7 @@ services:
     volumes:
       - /home/robbo/docker/jellyfin/config:/config
       - /home/robbo/docker/jellyfin/cache:/cache
-#      - /media:/media
+      - /mnt/media/:/media
       - /mnt/media/music/:/media2/music
     networks:
       - tv-network
@@ -40,7 +40,7 @@ services:
     volumes:
       - /home/robbo/docker/sonarr/config:/config
       - /media/tv:/tv
-      - /media/downloads:/downloads
+      - /mnt/media/movies/downloads:/downloads
     ports:
       - "8989:8989"
     networks:
@@ -58,7 +58,7 @@ services:
     volumes:
       - /home/robbo/docker/radarr/config:/config
       - /media/Xmovies:/movies
-      - /media/downloads:/downloads
+      - /mnt/media/movies/downloads:/downloads
     ports:
       - "7878:7878"
     networks:
