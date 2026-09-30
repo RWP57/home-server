@@ -15,7 +15,7 @@ services:
       start_period: 10s
     volumes:
       - /home/robbo/docker/sabnzbd/config:/config
-      - /media/downloads:/downloads
+      - /mnt/media/movies/downloads:/downloads
     ports:
       - "8080:8080"
     networks:
@@ -32,8 +32,9 @@ services:
       - TZ=America/Chicago
     volumes:
       - /home/robbo/docker/qbittorrent/appdata:/config
-      - /media/Xmovies:/movies
-      - /media/downloads:/downloads
+ #     - /media/Xmovies:/movies
+      - /mnt/media/movies/Xmovies:/movies
+      - /mnt/media/movies/downloads:/downloads
     ports:
       - "8081:8080"
       - "6881:6881"
@@ -52,8 +53,9 @@ services:
       - TZ=America/Chicago
     volumes:
       - /home/robbo/docker/nzbget/config:/config
-      - /media/Xmovies:/movies
-      - /media/downloads:/downloads
+#      - /media/Xmovies:/movies
+      - /mnt/media/movies/Xmovies:/movies
+      - /mnt/media/movies/downloads:/downloads
     ports:
       - "6789:6789"
     networks:
@@ -70,7 +72,7 @@ services:
       - TZ=America/Chicago
     volumes:
       - /home/robbo/docker/deluge/config:/config
-      - /media/downloads:/downloads
+      - /mnt/media/movies/downloads:/downloads
     ports:
       - "8112:8112"
       - "58846:58846"
