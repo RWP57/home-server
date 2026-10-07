@@ -50,6 +50,10 @@ services:
 
 
   radarr:
+#      - /home/robbo/docker/radarr/config:/config
+ #     - /media/Xmovies:/movies
+ #     - /mnt/media/movies/Xmovies:/movies
+  #    - /mnt/media/movies/downloads:/downloads
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     environment:
@@ -58,15 +62,14 @@ services:
       - TZ=America/Chicago
     volumes:
       - /home/robbo/docker/radarr/config:/config
- #     - /media/Xmovies:/movies
-      - /mnt/media/movies/Xmovies:/movies
-      - /mnt/media/movies/downloads:/downloads
+      # Map the shared parent folder to /data inside the container
+      - /mnt/media:/data
     ports:
       - "7878:7878"
     networks:
       - media-network
-
     restart: unless-stopped
+
 
 
   prowlarr:
