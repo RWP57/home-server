@@ -23,23 +23,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2 
-      - name: Determine changed stack
-        id: check_changes
+          fetch-depth: 0 # 1. Fetch all history so git diff can accurately compare commits
+
+      - name: Deploy Changed Stacks
         run: |
-          CHANGED_DIR=$(git diff --name-only HEAD~1 | head -n 1 | cut -d '/' -f1)
-          echo "stack=$CHANGED_DIR" >> $GITHUB_OUTPUT
-      - name: Deploy Local Stack
-        run: |
-          # 1. Move to where your runner checked out the repository files
-          # 2. Pull the images and update the exact container stack locally
-          cd ${{ github.workspace }}/${{ steps.check_changes.outputs.stack }}
-          #echo ${{github.workspace}}
-          #echo "XX"
-          #echo ${{steps.check_changes.outputs.stack}}
-          #echo "YY"
-          #pwd
-          #ls
-          docker compose pull
-          docker compose up -d --remove-orphans
+          # 2. Get a list of all unique top-level directories that changed in this push
+          # We use github.event.before to compare against the previous repository state safely
+          CHANGED_STACKS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | cut -d '/' -f1 | sort -u)
           
+          echo "Detected changes in the following stacks:"
+          echo "$CHANGED_STACKS"
+          
+          # 3. Loop through each detected folder and deploy it if a compose file exists
+          for stack in $CHANGED_STACKS; do
+            if [ -d "${{ github.workspace }}/$stack" ] && [ -f "${{ github.workspace }}/$stack/docker-compose.yml" ] || [ -f "${{ github.workspace }}/$stack/compose.yaml" ]; then
+              echo "--------------------------------------------------------"
+              echo "🚀 Deploying stack: $stack"
+              echo "--------------------------------------------------------"
+              
+              cd ${{ github.workspace }}/$stack
+              docker compose pull
+              docker compose up -d --remove-orphans
+            else
+              echo "⏩ Skipping '$stack' (Not a directory or no docker-compose file found)"
+            fi
+          done
