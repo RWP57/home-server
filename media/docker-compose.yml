@@ -20,6 +20,7 @@ services:
       - /mnt/media/:/media
       - /mnt/media/music/:/media2/music
       - /media/tv:/tv
+      - /mnt/media:/data
     networks:
       - tv-network
       - media-network
@@ -41,7 +42,8 @@ services:
     volumes:
       - /home/robbo/docker/sonarr/config:/config
       - /media/tv:/tv
-      - /mnt/media/movies/downloads:/downloads
+   #   - /mnt/media/movies/downloads:/downloads
+      - /mnt/media:/data
     ports:
       - "8989:8989"
     networks:
