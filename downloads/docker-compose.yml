@@ -1,5 +1,4 @@
 services:
- 
   sabnzbd:
     image: linuxserver/sabnzbd:latest
     container_name: sabnzbd
@@ -15,13 +14,13 @@ services:
       start_period: 10s
     volumes:
       - /home/robbo/docker/sabnzbd/config:/config
-      - /mnt/media/movies/downloads:/downloads
+  #    - /mnt/media/movies/downloads:/downloads
+      - /mnt/media:/data
     ports:
       - "8080:8080"
     networks:
       - media-network
     restart: unless-stopped
-
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -33,8 +32,10 @@ services:
     volumes:
       - /home/robbo/docker/qbittorrent/appdata:/config
  #     - /media/Xmovies:/movies
-      - /mnt/media/movies/Xmovies:/movies
-      - /mnt/media/movies/downloads:/downloads
+ #     - /mnt/media/movies/Xmovies:/movies
+ #     - /mnt/media/movies/downloads:/downloads
+      # Clean up individual folder cross-mappings and unify
+      - /mnt/media:/data
     ports:
       - "8081:8080"
       - "6881:6881"
@@ -54,8 +55,10 @@ services:
     volumes:
       - /home/robbo/docker/nzbget/config:/config
 #      - /media/Xmovies:/movies
-      - /mnt/media/movies/Xmovies:/movies
-      - /mnt/media/movies/downloads:/downloads
+ #     - /mnt/media/movies/Xmovies:/movies
+ #     - /mnt/media/movies/downloads:/downloads
+      # Clean up individual folder cross-mappings and unify
+      - /mnt/media:/data
     ports:
       - "6789:6789"
     networks:
@@ -72,7 +75,9 @@ services:
       - TZ=America/Chicago
     volumes:
       - /home/robbo/docker/deluge/config:/config
-      - /mnt/media/movies/downloads:/downloads
+#      - /mnt/media/movies/downloads:/downloads
+      # Clean up individual folder cross-mappings and unify
+      - /mnt/media:/data
     ports:
       - "8112:8112"
       - "58846:58846"
