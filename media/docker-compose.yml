@@ -66,6 +66,7 @@ services:
       - /home/robbo/docker/radarr/config:/config
       # Map the shared parent folder to /data inside the container
       - /mnt/media:/data
+      - /mnt/media/movies/Xmovies:/movies
     ports:
       - "7878:7878"
     networks:
