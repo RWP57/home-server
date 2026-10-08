@@ -1,5 +1,4 @@
 services:
-
   immich-server:
     container_name: immich_server
     image: ghcr.io/immich-app/immich-server:release
@@ -23,7 +22,6 @@ services:
     container_name: immich_redis
     image: valkey/valkey:latest
     restart: always
-
 
   database:
     container_name: immich_postgres
