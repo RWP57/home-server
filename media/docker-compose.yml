@@ -17,10 +17,8 @@ services:
     volumes:
       - /home/robbo/docker/jellyfin/config:/config
       - /home/robbo/docker/jellyfin/cache:/cache
-      - /mnt/media/:/media
-      - /mnt/media/music/:/media2/music
-      - /media/tv:/tv
       - /mnt/media:/data
+
     networks:
       - tv-network
       - media-network
@@ -41,7 +39,7 @@ services:
       - TZ=America/Chicago
     volumes:
       - /home/robbo/docker/sonarr/config:/config
-      - /media/tv:/tv
+#      - /media/tv:/tv
    #   - /mnt/media/movies/downloads:/downloads
       - /mnt/media:/data
     ports:
@@ -49,7 +47,6 @@ services:
     networks:
       - media-network
     restart: unless-stopped
-
 
   radarr:
 #      - /home/robbo/docker/radarr/config:/config
@@ -66,14 +63,11 @@ services:
       - /home/robbo/docker/radarr/config:/config
       # Map the shared parent folder to /data inside the container
       - /mnt/media:/data
-      - /mnt/media/movies/Xmovies:/movies
     ports:
       - "7878:7878"
     networks:
       - media-network
     restart: unless-stopped
-
-
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -90,7 +84,6 @@ services:
       - media-network
     restart: unless-stopped
 
-
   seerr:
     image: ghcr.io/seerr-team/seerr:latest
     init: true
@@ -104,7 +97,7 @@ services:
       - /home/robbo/docker/jellyseerr/config:/app/config
     networks:
       - media-network
-  #    - tv-network
+      - tv-network
     restart: unless-stopped
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1
@@ -112,7 +105,6 @@ services:
       timeout: 3s
       interval: 15s
       retries: 3
-
 
 networks:
   media-network:
