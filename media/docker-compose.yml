@@ -39,7 +39,7 @@ services:
       - TZ=America/Chicago
     volumes:
       - /home/robbo/docker/sonarr/config:/config
-#      - /media/tv:/tv
+      - /media/tv:/tv
    #   - /mnt/media/movies/downloads:/downloads
       - /mnt/media:/data
     ports:
