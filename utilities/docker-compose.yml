@@ -1,5 +1,4 @@
 services:
-
   grocy:
     image: lscr.io/linuxserver/grocy:latest
     container_name: grocy
@@ -19,8 +18,9 @@ services:
     ports:
       - "7979:8080"
     volumes:
-      - /tmp/data/db.sqlite3:/db/db.sqlite3
+      # Corrected to point to your live Grocy database
+      - /home/robbo/docker/grocy/config/data/grocy.db:/db/grocy.db
     command:
       - sqlite_web
-      - /db/db.sqlite3
+      - /db/grocy.db
       - --host=0.0.0.0
