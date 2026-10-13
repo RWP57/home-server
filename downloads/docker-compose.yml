@@ -84,8 +84,7 @@ services:
       - "6882:6881/udp"
     networks:
       - media-network
-    restart: unless-stopped
-
+    restart: no
 networks:  
   media-network:
     external: true
