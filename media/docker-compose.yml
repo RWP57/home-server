@@ -19,6 +19,10 @@ services:
       - /home/robbo/docker/jellyfin/cache:/cache
       - /mnt/media:/data
       - /media:/media
+      - type: tmpfs
+        target: /transcode
+        tmpfs:
+          size 1073741824
     networks:
       - tv-network
       - media-network
