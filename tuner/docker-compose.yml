@@ -34,6 +34,17 @@ services:
       - tv-network
     depends_on:
       - fastchannels
+      
+  dispatcharr:
+    image: h997/dispatcharr:latest
+    container_name: dispatcharr
+    restart: unless-stopped
+    environment:
+      - TZ=Etc/Chicago # Change this to your local timezone, e.g., America/New_York
+    volumes:
+      - ./config:/app/config # Stores your app settings, m3u, and xmltv configuration
+    ports:
+      - "9080:8080" # Change the host port (left) if 8080 is already taken on your system
 
 
   hls-proxy:
