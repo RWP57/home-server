@@ -3,9 +3,8 @@ services:
   jellyfin:
     image: jellyfin/jellyfin:latest
     container_name: jellyfin
+    user: "1000:1000" # Add this line
     environment:
-      - PUID=1000
-      - PGID=1000
       - TZ=America/Chicago
       - DOTNET_SYSTEM_NET_DISABLEIPV6=1
       - JELLYFIN_PublishedServerUrl=http://localhost:8096
