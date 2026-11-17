@@ -20,7 +20,7 @@ services:
       - /mnt/media:/data
       - /media:/media
     tmpfs:
-      - /transcode:size=1G,mode=1777
+      - /transcode:size=2G,mode=1777
     networks:
       - tv-network
       - media-network
