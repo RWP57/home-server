@@ -91,6 +91,8 @@ services:
     init: true
     container_name: seerr
     environment:
+      - PUID=1000 # Add this
+      - PGID=1000 # Add this
       - LOG_LEVEL=debug
       - TZ=America/Chicago
     ports:
