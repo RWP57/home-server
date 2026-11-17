@@ -36,15 +36,20 @@ services:
       - fastchannels
       
   dispatcharr:
-    image: h997/dispatcharr:latest
+    image: ghcr.io/dispatcharr/dispatcharr:latest
     container_name: dispatcharr
     restart: unless-stopped
-    environment:
-      - TZ=Etc/Chicago # Change this to your local timezone, e.g., America/New_York
-    volumes:
-      - ./config:/app/config # Stores your app settings, m3u, and xmltv configuration
     ports:
-      - "9080:8080" # Change the host port (left) if 8080 is already taken on your system
+      - "9191:9191"
+    volumes:
+  #    - ./dispatcharr_data:/data
+      - /media/tuner/dispatcharr_conf:/data
+    environment:
+      - DISPATCHARR_ENV=aio
+      - REDIS_HOST=localhost
+      - CELERY_BROKER_URL=redis://localhost:6379/0
+      - DISPATCHARR_LOG_LEVEL=info
+
 
 
   hls-proxy:
