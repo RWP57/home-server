@@ -34,7 +34,7 @@ services:
       - tv-network
     depends_on:
       - fastchannels
-      
+
   dispatcharr:
     image: ghcr.io/dispatcharr/dispatcharr:latest
     container_name: dispatcharr
@@ -42,13 +42,16 @@ services:
     ports:
       - "9191:9191"
     volumes:
-  #    - ./dispatcharr_data:/data
       - /media/tuner/dispatcharr_conf:/data
     environment:
       - DISPATCHARR_ENV=aio
       - REDIS_HOST=localhost
       - CELERY_BROKER_URL=redis://localhost:6379/0
       - DISPATCHARR_LOG_LEVEL=info
+    networks:
+      - tv-network
+    depends_on:
+      - fastchannels
 
 
 
