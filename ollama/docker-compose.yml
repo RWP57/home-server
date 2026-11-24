@@ -3,7 +3,6 @@ services:
   ollama:
     image: ollama/ollama:latest
     container_name: ollama
-   # user: "1000:1000" 
     ports:
       - "11434:11434"
     volumes:
@@ -17,7 +16,6 @@ services:
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui
-#    user: "1000:1000" 
     depends_on:
       - ollama
     ports:
